@@ -628,27 +628,20 @@ int GenerateTsFromBs(const char* kpH264FileName, const char* kpOuputFileName) {
   }
   unsigned long long uiTimeStamp = 0;
   int iRet = 0;
-  int64_t iStart = 0, iEnd = 0, iTotal = 0;
   int32_t iSliceSize;
   int32_t iSliceIndex = 0;
   uint8_t* pBuf = NULL;
   uint8_t uiStartCode[4] = { 0, 0, 0, 1 };
 
   uint8_t* pData[3] = { NULL };
-  uint8_t* pDst[3] = { NULL };
   SParserBsInfo sParserBsInfo;
 
   int32_t iBufPos = 0;
   int32_t iFileSize;
   int32_t i = 0;
-  int32_t iLastWidth = 0, iLastHeight = 0;
   int32_t iFrameCount = 0;
   int32_t iEndOfStreamFlag = 0;
-  //for coverage test purpose
-  int32_t iErrorConMethod = (int32_t)ERROR_CON_SLICE_MV_COPY_CROSS_IDR_FREEZE_RES_CHANGE;
-  pDecoder->SetOption(DECODER_OPTION_ERROR_CON_IDC, &iErrorConMethod);
   //~end for
-  double dElapsed = 0;
 
   if (pDecoder == NULL) return 1;
   if (kpH264FileName) {
@@ -757,7 +750,6 @@ int GenerateTsFromBs(const char* kpH264FileName, const char* kpOuputFileName) {
     ++iSliceIndex;
   }
 
-  dElapsed = iTotal / 1e6;
   fprintf(stderr, "-------------------------------------------------------\n");
   fprintf(stderr, "Frames:\t\t%d\n", iFrameCount);
   fprintf(stderr, "-------------------------------------------------------\n");

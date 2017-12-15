@@ -63,6 +63,7 @@ int main (int iArgC, char* pArgV[]) {
       return 1;
     }
   }
+#ifdef _WIN32
 #ifdef _DEBUG
   HINSTANCE dllHandle = LoadLibrary("C:\\Users\\wayne\\Documents\\GitHub\\ts_generate_from_264bs\\bin\\Win32\\Debug\\TsGenPlus.dll");
 #else
@@ -79,6 +80,8 @@ int main (int iArgC, char* pArgV[]) {
     int iRet = pFunc(strInputFile.c_str(), strOutputFile.c_str());
     FreeLibrary(dllHandle);
   }
+#else
+#endif
 
   return 0;
 }

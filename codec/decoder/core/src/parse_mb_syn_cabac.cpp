@@ -948,18 +948,7 @@ int32_t ParseIPCMInfoCabac (PWelsDecoderContext pCtx) {
   PWelsCabacDecEngine pCabacDecEngine = pCtx->pCabacDecEngine;
   SBitStringAux* pBsAux = pCtx->pCurDqLayer->pBitStringAux;
   SDqLayer* pCurLayer = pCtx->pCurDqLayer;
-  int32_t iDstStrideLuma = pCurLayer->pDec->iLinesize[0];
-  int32_t iDstStrideChroma = pCurLayer->pDec->iLinesize[1];
-  int32_t iMbX = pCurLayer->iMbX;
-  int32_t iMbY = pCurLayer->iMbY;
   int32_t iMbXy = pCurLayer->iMbXyIndex;
-
-  int32_t iMbOffsetLuma = (iMbX + iMbY * iDstStrideLuma) << 4;
-  int32_t iMbOffsetChroma = (iMbX + iMbY * iDstStrideChroma) << 3;
-
-  uint8_t* pMbDstY = pCtx->pDec->pData[0] + iMbOffsetLuma;
-  uint8_t* pMbDstU = pCtx->pDec->pData[1] + iMbOffsetChroma;
-  uint8_t* pMbDstV = pCtx->pDec->pData[2] + iMbOffsetChroma;
 
   uint8_t* pPtrSrc;
 

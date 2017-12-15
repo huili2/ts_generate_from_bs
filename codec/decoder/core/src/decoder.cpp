@@ -269,7 +269,6 @@ void DestroyPicBuff (PPicBuff* ppPicBuf, CMemoryAlign* pMa) {
  * fill data fields in default for decoder context
  */
 void WelsDecoderDefaults (PWelsDecoderContext pCtx, SLogContext* pLogCtx) {
-  int32_t iCpuCores               = 1;
   pCtx->sLogCtx = *pLogCtx;
 
   pCtx->pArgDec                   = NULL;

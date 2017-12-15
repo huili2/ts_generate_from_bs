@@ -353,15 +353,7 @@
 			Filter="cpp;c;cxx;rc;def;r;odl;idl;hpj;bat"
 			>
 			<File
-				RelativePath="..\..\..\console\dec\src\d3d9_utils.cpp"
-				>
-			</File>
-			<File
-				RelativePath="..\..\..\console\dec\src\h264dec.cpp"
-				>
-			</File>
-			<File
-				RelativePath="..\..\..\console\common\src\read_config.cpp"
+				RelativePath="..\..\..\console\dec\src\testConsole.cpp"
 				>
 			</File>
 		</Filter>
@@ -369,14 +361,6 @@
 			Name="Header Files"
 			Filter="h;hpp;hxx;hm;inl"
 			>
-			<File
-				RelativePath="..\..\..\console\dec\inc\d3d9_utils.h"
-				>
-			</File>
-			<File
-				RelativePath="..\..\..\console\common\inc\read_config.h"
-				>
-			</File>
 		</Filter>
 		<Filter
 			Name="Resource Files"

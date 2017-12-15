@@ -1103,8 +1103,6 @@ int32_t WelsActualDecodeMbCavlcISlice (PWelsDecoderContext pCtx) {
   int32_t iScanIdxStart = pSlice->sSliceHeaderExt.uiScanIdxStart;
   int32_t iScanIdxEnd   = pSlice->sSliceHeaderExt.uiScanIdxEnd;
 
-  int32_t iMbX = pCurLayer->iMbX;
-  int32_t iMbY = pCurLayer->iMbY;
   const int32_t iMbXy = pCurLayer->iMbXyIndex;
   int8_t* pNzc = pCurLayer->pNzc[iMbXy];
   int32_t i;
@@ -1385,8 +1383,6 @@ int32_t WelsActualDecodeMbCavlcPSlice (PWelsDecoderContext pCtx) {
   int32_t iScanIdxEnd   = pSlice->sSliceHeaderExt.uiScanIdxEnd;
 
   SWelsNeighAvail sNeighAvail;
-  int32_t iMbX = pCurLayer->iMbX;
-  int32_t iMbY = pCurLayer->iMbY;
   const int32_t iMbXy = pCurLayer->iMbXyIndex;
   int8_t* pNzc = pCurLayer->pNzc[iMbXy];
   int32_t i;

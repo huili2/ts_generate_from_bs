@@ -60,7 +60,6 @@ static int32_t MarkAsLongTerm (PRefPic pRefPic, int32_t iFrameNum, int32_t iLong
 #ifdef LONG_TERM_REF
 int32_t GetLTRFrameIndex (PRefPic pRefPic, int32_t iAncLTRFrameNum);
 #endif
-static int32_t RemainOneBufferInDpbForEC (PWelsDecoderContext pCtx);
 
 static void SetUnRef (PPicture pRef) {
   if (NULL != pRef) {
@@ -531,39 +530,5 @@ int32_t GetLTRFrameIndex (PRefPic pRefPic, int32_t iAncLTRFrameNum) {
   return iLTRFrameIndex;
 }
 #endif
-
-static int32_t RemainOneBufferInDpbForEC (PWelsDecoderContext pCtx) {
-  int32_t iRet = ERR_NONE;
-  PRefPic pRefPic = &pCtx->sRefPic;
-  if (pRefPic->uiShortRefCount[0] + pRefPic->uiLongRefCount[0] < pCtx->pSps->iNumRefFrames)
-    return iRet;
-
-  if (pRefPic->uiShortRefCount[0] > 0) {
-    iRet = SlidingWindow (pCtx);
-  } else { //all LTR, remove the smallest long_term_frame_idx
-    int32_t iLongTermFrameIdx = 0;
-    int32_t iMaxLongTermFrameIdx = pRefPic->iMaxLongTermFrameIdx;
-#ifdef LONG_TERM_REF
-    int32_t iCurrLTRFrameIdx = GetLTRFrameIndex (pRefPic, pCtx->iFrameNumOfAuMarkedLtr);
-#endif
-    while ((pRefPic->uiLongRefCount[0] >= pCtx->pSps->iNumRefFrames) && (iLongTermFrameIdx <= iMaxLongTermFrameIdx)) {
-#ifdef LONG_TERM_REF
-      if (iLongTermFrameIdx == iCurrLTRFrameIdx) {
-        iLongTermFrameIdx++;
-        continue;
-      }
-#endif
-      WelsDelLongFromListSetUnref (pRefPic, iLongTermFrameIdx);
-      iLongTermFrameIdx++;
-    }
-  }
-  if (pRefPic->uiShortRefCount[0] + pRefPic->uiLongRefCount[0] >=
-      pCtx->pSps->iNumRefFrames) { //fail to remain one empty buffer in DPB
-    WelsLog (& (pCtx->sLogCtx), WELS_LOG_WARNING, "RemainOneBufferInDpbForEC(): empty one DPB failed for EC!");
-    iRet = ERR_INFO_REF_COUNT_OVERFLOW;
-  }
-
-  return iRet;
-}
 
 } // namespace WelsDec

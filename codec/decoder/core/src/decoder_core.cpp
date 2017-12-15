@@ -49,7 +49,6 @@ static inline int32_t DecodeFrameConstruction (PWelsDecoderContext pCtx, uint8_t
   const int32_t kiHeight = pCurDq->iMbHeight << 4;
 
   const int32_t kiTotalNumMbInCurLayer = pCurDq->iMbWidth * pCurDq->iMbHeight;
-  bool bFrameCompleteFlag = true;
 
   if (pPic->bNewSeqBegin) {
     memcpy (& (pCtx->sFrameCrop), & (pCurDq->sLayerInfo.sSliceInLayer.sSliceHeaderExt.sSliceHeader.pSps->sFrameCrop),
@@ -85,7 +84,6 @@ static inline int32_t DecodeFrameConstruction (PWelsDecoderContext pCtx, uint8_t
   PAccessUnit pCurAu = pCtx->pAccessUnitList;
   if (dsErrorFree == pCtx->iErrorCode) { //correct decoding, add to data buffer
     SParserBsInfo* pParser = pCtx->pParserBsInfo;
-    int32_t iNalLen = 0;
     int32_t iIdx = pCurAu->uiStartPos;
     int32_t iEndIdx = pCurAu->uiEndPos;
     pParser->uiOutBsTimeStamp = (pCurAu->pNalUnitsList [iIdx]) ? pCurAu->pNalUnitsList [iIdx]->uiTimeStamp : 0;
