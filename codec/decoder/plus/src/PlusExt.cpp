@@ -739,7 +739,7 @@ int GenerateTsFromBs(const char* kpH264FileName, const char* kpOuputFileName, do
       goto label_exit;
     }
     else {
-      fprintf(pTsFile, "%.4f,%d,%d\n", iFrameCount/dFps, eType, iSliceSize);
+      fprintf(pTsFile, "%d,%d,%d\n", (int)(iFrameCount*1000/dFps), eType, iSliceSize);
       if (iRet == 0 && sParserBsInfo.iNalNum > 0) {
         ++iFrameCount;
       }
