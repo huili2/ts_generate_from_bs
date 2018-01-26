@@ -45,18 +45,22 @@
 
 using namespace std;
 
-typedef int (*GENERATE_TS) (const char* , const char*);
+typedef int (*GENERATE_TS) (const char* , const char*, double);
 GENERATE_TS pFunc;
 
 int main (int iArgC, char* pArgV[]) {
   string strInputFile (""), strOutputFile ("");
+  double dFps = 0.;
 
-  if (iArgC != 3) {
-    printf ("usage: TestConsole.exe input.264 out_ts_file\n");
+  if (iArgC != 3 || iArgC != 4) {
+    printf ("usage: TestConsole.exe input.264 out_ts_file [fps]\n");
     return 1;
   } else {
     strInputFile = pArgV[1];
     strOutputFile = pArgV[2];
+
+	if (iArgC == 4)
+	  dFps = atof(pArgV[3]);
 
     if (strInputFile.empty()) {
       printf ("No input file specified in configuration file.\n");
@@ -77,7 +81,7 @@ int main (int iArgC, char* pArgV[]) {
     FreeLibrary(dllHandle);
     return 1;
   } else {
-    int iRet = pFunc(strInputFile.c_str(), strOutputFile.c_str());
+    int iRet = pFunc(strInputFile.c_str(), strOutputFile.c_str(), dFps);
     FreeLibrary(dllHandle);
   }
 #else

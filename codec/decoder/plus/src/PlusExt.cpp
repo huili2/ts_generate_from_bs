@@ -608,7 +608,7 @@ void WelsDestroyDecoder (ISVCDecoder* pDecoder) {
     delete (CWelsDecoder*)pDecoder;
   }
 }
-int GenerateTsFromBs(const char* kpH264FileName, const char* kpOuputFileName) {
+int GenerateTsFromBs(const char* kpH264FileName, const char* kpOuputFileName, double dFps) {
   FILE* pH264File = NULL;
   FILE* pTsFile = NULL;
 
@@ -739,7 +739,7 @@ int GenerateTsFromBs(const char* kpH264FileName, const char* kpOuputFileName) {
       goto label_exit;
     }
     else {
-      fprintf(pTsFile, "%d,%d,%d\n", iFrameCount, eType, iSliceSize);
+      fprintf(pTsFile, "%.4f,%d,%d\n", iFrameCount/dFps, eType, iSliceSize);
       if (iRet == 0 && sParserBsInfo.iNalNum > 0) {
         ++iFrameCount;
       }
